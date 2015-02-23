@@ -2,8 +2,6 @@ define ["paper"], (paper) ->
 
   { Color, Group, Path } = paper
 
-  window.painter ?= {}
-
   # Draw the path of the sketcher
   class
     # Given the ID or the HTML element of the canvas,

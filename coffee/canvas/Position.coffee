@@ -2,8 +2,6 @@ define ["paper"], (paper) ->
 
   { Rectangle, Color, Path: { Circle }, PointText, Group, Size } = paper
 
-  window.painter ?= {}
-
   # Show the sketcher cursor current position.
   class
     # Given the ID or the HTML element of the canvas,
