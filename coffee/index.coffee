@@ -1,56 +1,45 @@
-require [ "underscore", "jquery", "canvas/Painter", "mousewheel" ], (_, $, Painter) ->
+require ["jquery"], ($) ->
   $ ->
-    { debounce } = _
+    $ window
+      .on "contextmenu", (e) -> e.preventDefault()
 
-    painter = new Painter "image", "draw", "position"
+    jtl = $ ".join.top.left"
+    jtr = $ ".join.top.right"
+    jbr = $ ".join.bottom.right"
+    jbl = $ ".join.bottom.left"
 
-    url = "http://upload.wikimedia.org/wikipedia/commons/9/99/Leonardo_Sala_delle_Asse_detail.jpg"
-    painter.showImage url, 804, 1031
+    ftl = $ "iframe.top.left"
+    ftr = $ "iframe.top.right"
+    fbr = $ "iframe.bottom.right"
+    fbl = $ "iframe.bottom.left"
 
-    painter.setName "PlayerOne"
-    painter.setTool
-      tool: "pen"
-      color: "red"
-      size: 3
+    jbl.on "click", ->
+      jbl.addClass "hidden"
+      fbl.removeClass "hidden"
+        .attr "src", "page.html"
+      jtr.removeClass "hidden"
 
-    viewport = $ '#viewport'
-    $window = $ window
+    jtr.on "click", ->
+      jtr.addClass "hidden"
+      fbl.addClass "half-width"
+      fbr.addClass "half-width"
+      ftl.addClass "half-width"
+      ftr.addClass "half-width"
+        .removeClass "hidden"
+        .attr "src", "page.html"
+      jtl.removeClass "hidden"
+      jbr.removeClass "hidden"
 
-    started = false
+    jtl.on "click", ->
+      jtl.addClass "hidden"
+      fbl.addClass "half-height"
+      ftl.addClass "half-height"
+        .removeClass "hidden"
+        .attr "src", "page.html"
 
-    resize = ->
-      painter.resize viewport.width(), viewport.height()
-      painter.fit()
-
-    resize()
-
-    $window.on "resize", debounce resize, 200
-
-    viewport.on "mousedown", (e) ->
-      if not started
-        started = true
-        painter.beginPath()
-        painter.setPoint painter.absolutePoint
-          x: e.pageX
-          y: e.pageY
-
-    viewport.on "mousemove", (e) ->
-      painter.setPoint painter.absolutePoint
-        x: e.pageX
-        y: e.pageY
-
-    $window.on "mouseup", (e) ->
-      if started
-        started = false
-        painter.setPoint painter.absolutePoint
-          x: e.pageX
-          y: e.pageY
-        painter.endPath()
-
-    viewport.on "mousewheel", (e) ->
-      scale = if e.deltaY > 0 then 2 else 1/2
-      center = painter.absolutePoint
-        x: e.pageX
-        y: e.pageY
-      painter.scale scale, center
-      painter.setPoint center
+    jbr.on "click", ->
+      jbr.addClass "hidden"
+      ftr.addClass "half-height"
+      fbr.addClass "half-height"
+        .removeClass "hidden"
+        .attr "src", "page.html"

@@ -2,8 +2,6 @@ define ["paper"], (paper) ->
 
   { Color, Group, Path } = paper
 
-  window.painter ?= {}
-
   # Draw the path of the sketcher
   class
     # Given the ID or the HTML element of the canvas,
@@ -25,7 +23,7 @@ define ["paper"], (paper) ->
       @color = new Color
       @size = 5
 
-      @path = null
+      @paths = {}
       @group = new Group
 
       @closed = false
@@ -51,35 +49,40 @@ define ["paper"], (paper) ->
     # Begins a path with the given properties
     # (If the paths were hidden before, deletes
     # them cleaning the canvas)
-    begin: ->
+    #
+    # @param id [Number] The index of the path
+    begin: (id) ->
       @project.activate()
 
       if not @group.visible
         @group.removeChildren()
         @group.setVisible true
 
-      @path = new Path
+      @paths[id] = new Path
         strokeColor: @color
         strokeWidth: @size
         blendMode: @tools[@tool].blendMode
 
-      @group.addChild @path
+      @group.addChild @paths[id]
       @
 
     # Adds a point at the end of current path
     #
     # @param point [paper.Point] The point to add
-    add: (point) ->
-      if @path?
-        @path.add point
+    # @param id [Number] The index of the path
+    add: (point, id) ->
+      if @paths[id]?
+        @paths[id].add point
         @view.draw()
       @
 
     # Ends a path and apply the simplification on it
-    end: ->
-      if @path?
-        @path.simplify 10
-        @path = null
+    #
+    # @param id [Number] The index of the path
+    end: (id) ->
+      if @paths[id]?
+        @paths[id].simplify 10
+        delete @paths[id]
 
       @view.draw()
       @

@@ -3,9 +3,6 @@
   define(["paper"], function(paper) {
     var Color, Group, Path;
     Color = paper.Color, Group = paper.Group, Path = paper.Path;
-    if (window.painter == null) {
-      window.painter = {};
-    }
     return (function() {
       function _Class(canvas) {
         paper.setup(canvas);
@@ -22,7 +19,7 @@
         this.tool = "pen";
         this.color = new Color;
         this.size = 5;
-        this.path = null;
+        this.paths = {};
         this.group = new Group;
         this.closed = false;
       }
@@ -44,33 +41,33 @@
         return this;
       };
 
-      _Class.prototype.begin = function() {
+      _Class.prototype.begin = function(id) {
         this.project.activate();
         if (!this.group.visible) {
           this.group.removeChildren();
           this.group.setVisible(true);
         }
-        this.path = new Path({
+        this.paths[id] = new Path({
           strokeColor: this.color,
           strokeWidth: this.size,
           blendMode: this.tools[this.tool].blendMode
         });
-        this.group.addChild(this.path);
+        this.group.addChild(this.paths[id]);
         return this;
       };
 
-      _Class.prototype.add = function(point) {
-        if (this.path != null) {
-          this.path.add(point);
+      _Class.prototype.add = function(point, id) {
+        if (this.paths[id] != null) {
+          this.paths[id].add(point);
           this.view.draw();
         }
         return this;
       };
 
-      _Class.prototype.end = function() {
-        if (this.path != null) {
-          this.path.simplify(10);
-          this.path = null;
+      _Class.prototype.end = function(id) {
+        if (this.paths[id] != null) {
+          this.paths[id].simplify(10);
+          delete this.paths[id];
         }
         this.view.draw();
         return this;

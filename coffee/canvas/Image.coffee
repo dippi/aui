@@ -2,8 +2,6 @@ define ["paper"], (paper) ->
 
   { Raster, Size } = paper
 
-  window.painter ?= {}
-
   # Shows an image in the relative canvas
   class
     # Given the ID or the HTML element of the canvas,

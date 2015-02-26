@@ -3,9 +3,6 @@
   define(["paper"], function(paper) {
     var Raster, Size;
     Raster = paper.Raster, Size = paper.Size;
-    if (window.painter == null) {
-      window.painter = {};
-    }
     return (function() {
       function _Class(canvas) {
         paper.setup(canvas);
