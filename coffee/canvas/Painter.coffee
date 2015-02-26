@@ -1,4 +1,4 @@
-define ["./Image", "./Path", "./Position", "./Zoom"], (Image, Path, Position, Zoom) ->
+define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
 
   # General proxy handler for canvases.
   class
@@ -7,12 +7,10 @@ define ["./Image", "./Path", "./Position", "./Zoom"], (Image, Path, Position, Zo
     #
     # @param image [String, DOMCanvas] The canvas to use for images
     # @param path [String, DOMCanvas] The canvas to use for paths
-    # @param position [String, DOMCanvas] The canvas to use for positions
-    constructor: (image, path, position) ->
+    constructor: (image, path) ->
       @image = new Image image
       @path = new Path path
-      @position = new Position position
-      @zoomer = new Zoom [@image.view, @path.view, @position.view]
+      @zoomer = new Zoom [@image.view, @path.view]
 
     # Shows the given image.
     #
@@ -36,40 +34,18 @@ define ["./Image", "./Path", "./Position", "./Zoom"], (Image, Path, Position, Zo
     # @param size [Number] The size of the tool
     setTool: ({tool, color, size}) ->
       @path.setTool tool
-
-      @position.setColor color
       @path.setColor color
-
-      @position.setSize size
       @path.setSize size
       @
 
-    # Set the name label for the cursor
-    #
-    # @param name [String] The name of the sketcher
-    setName: (name) ->
-      @position.setText name
-      @
-
-    # Set the current position point
-    # for position and path
+    # Set the current path position
     #
     # @param point [Object] The position point
     # @option point x [Number] The x coordinate
     # @option point y [Number] The y coordinate
-    setPoint: (point) ->
-      @position.draw point
-      @path.add point
-      @
-
-    # Hides the position from the canvas.
-    hidePosition: ->
-      @position.hide()
-      @
-
-    # Shows the position on the canvas.
-    showPosition: ->
-      @position.show()
+    # @param id [Number] The index of the path
+    setPoint: (point, id = 0) ->
+      @path.add point, id
       @
 
     # Hides the draw from the canvas.
@@ -83,13 +59,17 @@ define ["./Image", "./Path", "./Position", "./Zoom"], (Image, Path, Position, Zo
       @
 
     # Begin a new path
-    beginPath: ->
-      @path.begin()
+    #
+    # @param id [Number] The index of the path
+    beginPath: (id = 0) ->
+      @path.begin(id)
       @
 
     # Ends and simplify the path
-    endPath: ->
-      @path.end()
+    #
+    # @param id [Number] The index of the path
+    endPath: (id = 0) ->
+      @path.end(id)
       @
 
     # Resize the canvases
@@ -100,7 +80,6 @@ define ["./Image", "./Path", "./Position", "./Zoom"], (Image, Path, Position, Zo
       size = [ width, height ]
       @image.view.setViewSize size
       @path.view.setViewSize size
-      @position.view.setViewSize size
       @
 
     # Fits the image to the view
