@@ -4,58 +4,32 @@
 		<meta charset="utf-8">
 		<title>Home page</title>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css">
-		<style>
-			body, iframe, #wrapper {
-				margin: 0;
-				padding: 0;
-				border: none;
-			}
-			
-			#wrapper {
-				position: absolute;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				left: 0;
-			}
-			
-			iframe {
-				display: block;
-				float: left;
-				height: 100%;
-				width: 50%;
-			}
-			
-			.join-tl, .join-br {
-				position: absolute;
-				z-index: 10;
-				font-weight: bold;
-			}
-			
-			.join-tl {
-				transform: rotate(180deg);
-				top: 15px;
-				left: 25px;
-			}
-			
-			.join-br {
-				bottom: 15px;
-				right: 25px;
-			}
-		</style>
+		<link rel="stylesheet" href="css/index.css">
 	</head>
-	
+
 	<body>
 		<div id="wrapper">
-			<iframe src="page.html"></iframe>
-			<iframe src="page.html" style="transform:rotate(180deg);"></iframe>
+			<div class="hidden join top left">
+				<button class="btn btn-primary btn-lg">JOIN</button>
+			</div>
+			<div class="hidden join top right">
+				<button class="btn btn-primary btn-lg">JOIN</button>
+			</div>
+			<div class="hidden join bottom right">
+				<button class="btn btn-primary btn-lg">JOIN</button>
+			</div>
+			<div class="join bottom left">
+				<button class="btn btn-primary btn-lg">JOIN</button>
+			</div>
+
+			<iframe class="hidden top left"></iframe>
+			<iframe class="hidden top right"></iframe>
+			<iframe class="hidden bottom right"></iframe>
+			<iframe class=" bottom left"></iframe>
 		</div>
-		<div class="join-tl">
-			<button class="btn btn-primary btn-lg">JOIN</button>
-		</div>
-		<div class="join-br">
-			<button class="btn btn-primary btn-lg">JOIN</button>
-		</div>
+
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.15/require.js"></script>
+    <script type="text/javascript" src="js/require-config.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 	</body>
 </html>
-
