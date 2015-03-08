@@ -5,8 +5,8 @@ define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
     # Setups the specific handlers given
     # the ID or the HTML element of each canvas.
     #
-    # @param image [String, DOMCanvas] The canvas to use for images
-    # @param path [String, DOMCanvas] The canvas to use for paths
+    # @param image [String, HTMLCanvasElement] The canvas to use for images
+    # @param path [String, HTMLCanvasElement] The canvas to use for paths
     constructor: (image, path) ->
       @image = new Image image
       @path = new Path path

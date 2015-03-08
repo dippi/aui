@@ -8,10 +8,10 @@ require ["jquery"], ($) ->
     jbr = $ ".join.bottom.right"
     jbl = $ ".join.bottom.left"
 
-    ftl = $ "iframe.top.left"
-    ftr = $ "iframe.top.right"
-    fbr = $ "iframe.bottom.right"
-    fbl = $ "iframe.bottom.left"
+    ftl = $ ".frame.top.left"
+    ftr = $ ".frame.top.right"
+    fbr = $ ".frame.bottom.right"
+    fbl = $ ".frame.bottom.left"
 
     jbl.on "click", ->
       jbl.addClass "hidden"

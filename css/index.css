@@ -12,11 +12,30 @@ body, iframe, #wrapper {
   left: 0;
 }
 
-iframe {
+.frame {
   display: block;
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+.frame:not(.hidden) {
+  -webkit-animation: fadeInFromNone 2s;
+}
+
+@-webkit-keyframes fadeInFromNone {
+    0% {
+        display:none;
+        opacity: 0;
+    }
+    10% {
+        display: block;
+        opacity: 0;
+    }
+    100% {
+        display: block;
+        opacity: 1;
+    }
 }
 
 .join {
@@ -28,6 +47,7 @@ iframe {
 
 .hidden {
   display: none;
+  opacity: 0;
 }
 
 .top {
