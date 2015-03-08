@@ -1,0 +1,13 @@
+accuracy-game::shadow #viewport,
+accuracy-game::shadow #draw,
+accuracy-game::shadow #image {
+  width: 100%;
+  height: 100%;
+}
+
+accuracy-game::shadow #draw,
+accuracy-game::shadow #image {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
