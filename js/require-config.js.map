@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "require-config.js",
+  "sourceRoot": "..",
+  "sources": [
+    "coffee/require-config.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,OAAO,CAAC,MAAR,CACE;AAAA,IAAA,OAAA,EAAS,KAAT;AAAA,IACA,KAAA,EACE;AAAA,MAAA,QAAA,EAAU,eAAV;AAAA,MACA,OAAA,EAAS,mBADT;KAFF;GADF,CAAA,CAAA;AAAA"
+}

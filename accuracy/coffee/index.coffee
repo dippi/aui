@@ -15,17 +15,23 @@ debounce = (func, wait, immediate) ->
     timeout = setTimeout later, wait
     if callNow then func.apply context, args
 
-initialize = ($, Painter, host, shadow, paper) ->
+initialize = ($, Painter, host, shadow, config) ->
 
-  painter = new Painter $("#image", shadow)[0], $("#draw", shadow)[0]
+  painter = new Painter $("#image", shadow)[0], $("#reference", shadow)[0], $("#draw", shadow)[0]
 
-  url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Leonardo_Sala_delle_Asse_detail.jpg"
-  painter.showImage url, 804, 1031
+  i = Math.floor(Math.random() * config.images.length)
+  url = config.images[i].image
+  refUrl = config.images[i].reference
+  width = config.images[i].width
+  height = config.images[i].height
+  
+  painter.showImage url, width, height
+  painter.showReference refUrl, width, height
 
   painter.setTool
     tool: "pen"
     color: "red"
-    size: 3
+    size: 10
 
   viewport = $ '#viewport', shadow
 
@@ -93,8 +99,22 @@ initialize = ($, Painter, host, shadow, paper) ->
   #     y: e.pageY
   #   painter.scale scale, center
   #   painter.setPoint center
+  
+  $ '#end-game', shadow
+    .on "click", ->
+      $ '#results', shadow
+        .removeClass "hidden"
+        .find "#accuracy"
+        .text painter.getAccuracy()
+  
+  $ "#exit", shadow
+    .on "click", ->
+      $ '#results', shadow
+        .addClass "hidden"
+      painter.hidePath()
+      $host.trigger "quit"
 
-require [ "jquery", "../accuracy/js/canvas/Painter", "mousewheel" ], ($, Painter) ->
+require [ "jquery", "../accuracy/js/canvas/Painter", "../accuracy/js/config"], ($, Painter, config) ->
   $ ->
     proto = Object.create HTMLElement.prototype
     tmpl = $ "template", thatDocument
@@ -107,6 +127,6 @@ require [ "jquery", "../accuracy/js/canvas/Painter", "mousewheel" ], ($, Painter
 
       shadow.appendChild clone
 
-      initialize $, Painter, @, shadow
+      initialize $, Painter, @, shadow, config
 
     document.registerElement 'accuracy-game', prototype: proto

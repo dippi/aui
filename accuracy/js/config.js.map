@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "config.js",
+  "sourceRoot": "../..",
+  "sources": [
+    "accuracy/coffee/config.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,EAAA,MAAA,CAAO,SAAA,GAAA;WACL;AAAA,MAAA,MAAA,EAAQ;QAAC;AAAA,UACN,KAAA,EAAO,wBADD;AAAA,UAEN,SAAA,EAAW,4BAFL;AAAA,UAGN,KAAA,EAAO,IAHD;AAAA,UAIN,MAAA,EAAQ,IAJF;SAAD;OAAR;MADK;EAAA,CAAP,CAAA,CAAA;AAAA"
+}

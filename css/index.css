@@ -1,3 +1,7 @@
+body {
+  background-color: #151111;
+}
+
 body, iframe, #wrapper {
   margin: 0;
   padding: 0;
@@ -73,4 +77,10 @@ body, iframe, #wrapper {
 
 .half-width {
   width: 50%;
+}
+
+accuracy-game.top.left::shadow #end-game,
+accuracy-game.bottom.right::shadow #end-game {
+  right: 0;
+  left: initial;
 }

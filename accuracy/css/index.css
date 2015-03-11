@@ -1,13 +1,94 @@
 accuracy-game::shadow #viewport,
 accuracy-game::shadow #draw,
-accuracy-game::shadow #image {
+accuracy-game::shadow #image,
+accuracy-game::shadow #reference {
   width: 100%;
   height: 100%;
 }
 
+accuracy-game::shadow #viewport {
+  position: relative;
+}
+
 accuracy-game::shadow #draw,
-accuracy-game::shadow #image {
+accuracy-game::shadow #image,
+accuracy-game::shadow #reference {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+accuracy-game::shadow #end-game {
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+  margin: 15px 25px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #cc181e;
+  border-width: 0;
+  padding: 10px 15px;
+}
+
+accuracy-game::shadow #instructions #box,
+accuracy-game::shadow #results {
+  border-radius: 10px;
+  padding: 15px;
+  overflow-x: auto;
+  background-color: RGBa(180, 170, 160, 0.9);
+  border: solid 2px RGBa(110, 100, 90, 1);
+}
+
+accuracy-game::shadow #instructions {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+}
+
+accuracy-game::shadow #instructions #box {
+  display: inline-block;
+}
+
+accuracy-game::shadow #results {
+  position: absolute;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  z-index: 20;
+}
+
+accuracy-game::shadow h2,
+accuracy-game::shadow p {
+  margin: 0;
+}
+
+accuracy-game::shadow #results img {
+  width: 40%;
+  height: auto;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+accuracy-game::shadow #results button {
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #337ab7;
+  border-width: 0;
+  padding: 10px 15px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}
+
+accuracy-game::shadow .hidden {
+  display: none;
 }

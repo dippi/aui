@@ -4,8 +4,26 @@
   <div id="viewport">
     <!-- CANVAS USED TO SHOW THE IMAGE-->
     <canvas id="image"></canvas>
+    <!-- CANVAS USED TO SHOW THE REFERENCE PATH -->
+    <canvas id="reference"></canvas>
     <!-- CANVAS TO STORE THE ENTIRE DRAWINGS DONE SO FAR-->
     <canvas id="draw"></canvas>
+    <button id="end-game">Done</button>
+    <div id="instructions">
+      <div id="box">
+        <h2>Follow the highlighted path</h2>
+      </div>
+    </div>
+    <div id="results" class="hidden">
+      <h2>Your accuracy is: <span id="accuracy"></span>%</h2>
+      <img src="accuracy/img/image.jpg" />
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Sed venenatis lacinia lacus non elementum. Etiam sapien urna,
+        accumsan eget maximus nec, condimentum quis tellus.
+      </p>
+      <button id="exit">Quit</button>
+    </div>
   </div>
 </template>
 

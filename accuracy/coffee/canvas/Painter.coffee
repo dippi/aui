@@ -6,11 +6,16 @@ define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
     # the ID or the HTML element of each canvas.
     #
     # @param image [String, HTMLCanvasElement] The canvas to use for images
+    # @param reference [String, HTMLCanvasElement] The canvas to use for references paths
     # @param path [String, HTMLCanvasElement] The canvas to use for paths
-    constructor: (image, path) ->
+    constructor: (image, reference, path) ->
       @image = new Image image
+      @reference = new Image reference
       @path = new Path path
-      @zoomer = new Zoom [@image.view, @path.view]
+      @zoomer = new Zoom [@image.view, @reference.view, @path.view]
+
+      @pathCanv = path
+      @refCanv = reference
 
     # Shows the given image.
     #
@@ -25,6 +30,20 @@ define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
     # Hides the image
     hideImage: ->
       @image.hide()
+      @
+
+    # Show the path to replace
+    #
+    # @param image [String] The url of the img
+    # @param width [Number] The original width of img
+    # @param height [Number] The original height of img
+    showReference: (image, width, height) ->
+      @reference.show image, [width, height]
+      @
+
+    # Hides the reference path
+    hideReference: ->
+      @reference.hide()
       @
 
     # Sets the tools properties
@@ -79,6 +98,7 @@ define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
     resize: (width, height) ->
       size = [ width, height ]
       @image.view.setViewSize size
+      @reference.view.setViewSize size
       @path.view.setViewSize size
       @
 
@@ -126,3 +146,26 @@ define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
     # @option y [Number] The y coordinate
     absolutePoint: (point) ->
       @zoomer.absolutePoint(point)
+
+    # Compute the accuracy of the draw w.r.t. the refernce path
+    #
+    # @return [Number] The accuracy score
+    getAccuracy: ->
+      { width, height } = @pathCanv
+      pathData = @pathCanv.getContext '2d'
+        .getImageData 0, 0, width, height
+        .data
+      refData = @refCanv.getContext '2d'
+        .getImageData 0, 0, width, height
+        .data
+
+      correct = drawn = 0
+
+      for i in [0...height]
+        for j in [0...width]
+          k = (i * width + j) * 4 + 3
+          if pathData[k] isnt 0
+            ++drawn
+            ++correct if refData[k] isnt 0
+
+      Math.round((correct / drawn) * 100) or 0
