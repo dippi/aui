@@ -1,13 +1,28 @@
 accuracy-game::shadow #viewport,
 accuracy-game::shadow #draw,
-accuracy-game::shadow #image {
+accuracy-game::shadow #image,
+accuracy-game::shadow #reference {
   width: 100%;
   height: 100%;
 }
 
+accuracy-game::shadow #viewport {
+  position: relative;
+}
+
 accuracy-game::shadow #draw,
-accuracy-game::shadow #image {
+accuracy-game::shadow #image,
+accuracy-game::shadow #reference {
   position: absolute;
   top: 0;
   left: 0;
+}
+
+accuracy-game::shadow #end-game {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  right: 0;
+  font-weight: bold;
+  margin: 15px 25px;
 }

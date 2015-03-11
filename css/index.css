@@ -1,3 +1,7 @@
+body {
+  background-color: #151111;
+}
+
 body, iframe, #wrapper {
   margin: 0;
   padding: 0;

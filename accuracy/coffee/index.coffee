@@ -17,15 +17,22 @@ debounce = (func, wait, immediate) ->
 
 initialize = ($, Painter, host, shadow, paper) ->
 
-  painter = new Painter $("#image", shadow)[0], $("#draw", shadow)[0]
+  painter = new Painter $("#image", shadow)[0], $("#reference", shadow)[0], $("#draw", shadow)[0]
 
-  url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Leonardo_Sala_delle_Asse_detail.jpg"
-  painter.showImage url, 804, 1031
+  # url = "https://upload.wikimedia.org/wikipedia/commons/9/99/Leonardo_Sala_delle_Asse_detail.jpg"
+  # width = 804
+  # height = 1031
+  url = "accuracy/img/image.jpg"
+  refUrl = "accuracy/img/path.png"
+  width = 1920
+  height = 1280
+  painter.showImage url, width, height
+  painter.showReference refUrl, width, height
 
   painter.setTool
     tool: "pen"
     color: "red"
-    size: 3
+    size: 10
 
   viewport = $ '#viewport', shadow
 
@@ -93,6 +100,9 @@ initialize = ($, Painter, host, shadow, paper) ->
   #     y: e.pageY
   #   painter.scale scale, center
   #   painter.setPoint center
+  
+  endButton = $ '#end-game', shadow
+    .on "click", -> alert "Accuracy: #{painter.getAccuracy()}%"
 
 require [ "jquery", "../accuracy/js/canvas/Painter", "mousewheel" ], ($, Painter) ->
   $ ->
