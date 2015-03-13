@@ -168,4 +168,4 @@ define ["./Image", "./Path", "./Zoom"], (Image, Path, Zoom) ->
             ++drawn
             ++correct if refData[k] isnt 0
 
-      Math.round ((correct / drawn) * 100)
+      Math.round((correct / drawn) * 100) or 0

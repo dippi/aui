@@ -21,8 +21,56 @@ accuracy-game::shadow #reference {
 accuracy-game::shadow #end-game {
   position: absolute;
   z-index: 10;
-  top: 0;
+  bottom: 0;
   right: 0;
-  font-weight: bold;
   margin: 15px 25px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #cc181e;
+  border-width: 0;
+  padding: 10px 15px;
+}
+
+accuracy-game::shadow #instructions,
+accuracy-game::shadow #results {
+  position: absolute;
+  border-radius: 10px;
+  padding: 15px;
+  overflow-x: auto;
+  background-color: RGBa(180, 170, 160, 0.9);
+  border: solid 2px RGBa(110, 100, 90, 1);
+}
+
+accuracy-game::shadow #results {
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+}
+
+accuracy-game::shadow h2 {
+  margin: 0;
+}
+
+accuracy-game::shadow #results img {
+  width: 350px;
+  height: auto;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+accuracy-game::shadow #results button {
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: #fff;
+  background-color: #337ab7;
+  border-width: 0;
+  padding: 10px 15px;
+}
+
+accuracy-game::shadow .hidden {
+  display: none;
 }

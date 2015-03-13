@@ -102,7 +102,11 @@ initialize = ($, Painter, host, shadow, paper) ->
   #   painter.setPoint center
   
   endButton = $ '#end-game', shadow
-    .on "click", -> alert "Accuracy: #{painter.getAccuracy()}%"
+    .on "click", ->
+      $ '#results', shadow
+        .removeClass "hidden"
+        .find "#accuracy"
+        .text painter.getAccuracy()
 
 require [ "jquery", "../accuracy/js/canvas/Painter", "mousewheel" ], ($, Painter) ->
   $ ->
