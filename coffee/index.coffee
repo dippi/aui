@@ -3,43 +3,84 @@ require ["jquery"], ($) ->
     $ window
       .on "contextmenu", (e) -> e.preventDefault()
 
-    jtl = $ ".join.top.left"
-    jtr = $ ".join.top.right"
-    jbr = $ ".join.bottom.right"
-    jbl = $ ".join.bottom.left"
+    class Corner
+      constructor: (@button, @frame, @list, @row, @col) ->
+        @visible = false
 
-    ftl = $ ".frame.top.left"
-    ftr = $ ".frame.top.right"
-    fbr = $ ".frame.bottom.right"
-    fbl = $ ".frame.bottom.left"
+        @button.on "click", =>
+          @activate true
 
-    jbl.on "click", ->
-      jbl.addClass "hidden"
-      fbl.removeClass "hidden"
-        .attr "src", "page.html"
-      jtr.removeClass "hidden"
+          @halfHeight @list[(@row + 1) % 2][@col].visible
+          @halfWidth @list[(@row + 1) % 2][@col].visible or
+            @list[0][(@col + 1) % 2].visible or
+            @list[1][(@col + 1) % 2].visible
 
-    jtr.on "click", ->
-      jtr.addClass "hidden"
-      fbl.addClass "half-width"
-      fbr.addClass "half-width"
-      ftl.addClass "half-width"
-      ftr.addClass "half-width"
-        .removeClass "hidden"
-        .attr "src", "page.html"
-      jtl.removeClass "hidden"
-      jbr.removeClass "hidden"
+          @list[(@row + 1) % 2][@col]
+            .halfHeight true
+            .halfWidth true
+          @list[0][(@col + 1) % 2]
+            .halfWidth true
+          @list[1][(@col + 1) % 2]
+            .halfWidth true
 
-    jtl.on "click", ->
-      jtl.addClass "hidden"
-      fbl.addClass "half-height"
-      ftl.addClass "half-height"
-        .removeClass "hidden"
-        .attr "src", "page.html"
+        @frame.on "quit", =>
+          @activate false
+          @list[(@row + 1) % 2][@col]
+            .halfHeight false
+            .halfWidth @list[0][(@col + 1) % 2].visible or
+              @list[1][(@col + 1) % 2].visible
+          @list[0][(@col + 1) % 2]
+            .halfWidth @list[(@row + 1) % 2][@col].visible or
+              @list[1][(@col + 1) % 2].visible
+          @list[1][(@col + 1) % 2]
+            .halfWidth @list[0][(@col + 1) % 2].visible or
+              @list[(@row + 1) % 2][@col].visible
 
-    jbr.on "click", ->
-      jbr.addClass "hidden"
-      ftr.addClass "half-height"
-      fbr.addClass "half-height"
-        .removeClass "hidden"
-        .attr "src", "page.html"
+      activate: (flag) ->
+        @visible = flag
+        @button.toggleClass "hidden", flag
+        @frame.toggleClass "hidden", not flag
+        @
+
+      halfWidth: (flag) ->
+        @frame.toggleClass "half-width", flag
+        @
+
+      halfHeight: (flag) ->
+        @frame.toggleClass "half-height", flag
+        @
+
+
+    state = [[],[]];
+
+    state[0][0] = new Corner(
+      $ ".join.top.left"
+      $ ".frame.top.left"
+      state
+      0
+      0
+    )
+
+    state[0][1] = new Corner(
+      $ ".join.top.right"
+      $ ".frame.top.right"
+      state
+      0
+      1
+    )
+
+    state[1][0] = new Corner(
+      $ ".join.bottom.left"
+      $ ".frame.bottom.left"
+      state
+      1
+      0
+    )
+
+    state[1][1] = new Corner(
+      $ ".join.bottom.right"
+      $ ".frame.bottom.right"
+      state
+      1
+      1
+    )

@@ -101,14 +101,21 @@ initialize = ($, Painter, host, shadow, paper) ->
   #   painter.scale scale, center
   #   painter.setPoint center
   
-  endButton = $ '#end-game', shadow
+  $ '#end-game', shadow
     .on "click", ->
       $ '#results', shadow
         .removeClass "hidden"
         .find "#accuracy"
         .text painter.getAccuracy()
+  
+  $ "#exit", shadow
+    .on "click", ->
+      $ '#results', shadow
+        .addClass "hidden"
+      painter.hidePath()
+      $host.trigger "quit"
 
-require [ "jquery", "../accuracy/js/canvas/Painter", "mousewheel" ], ($, Painter) ->
+require [ "jquery", "../accuracy/js/canvas/Painter"], ($, Painter) ->
   $ ->
     proto = Object.create HTMLElement.prototype
     tmpl = $ "template", thatDocument
