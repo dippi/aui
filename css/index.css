@@ -78,3 +78,9 @@ body, iframe, #wrapper {
 .half-width {
   width: 50%;
 }
+
+accuracy-game.top.left::shadow #end-game,
+accuracy-game.bottom.right::shadow #end-game {
+  right: 0;
+  left: initial;
+}
